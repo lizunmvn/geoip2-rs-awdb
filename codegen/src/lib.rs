@@ -275,6 +275,18 @@ pub fn reader(metadata: TokenStream, input: TokenStream) -> TokenStream {
         #input
 
         impl<'a> Reader<'a, #ident #generics> {
+
+            pub fn from_bytes_awdb(buffer: &[u8]) -> Result<Reader<#ident>, Error> {
+                const types: [&'static str; #types_len] = [#(#types ,)*];
+                let reader = Reader::from_bytes_raw_awdb(buffer)?;
+                if !types.contains(&reader.metadata.database_type) {
+                    return Err(Error::InvalidDatabaseType(
+                        reader.metadata.database_type.into(),
+                    ));
+                }
+                Ok(reader)
+            }
+
             pub fn from_bytes(buffer: &[u8]) -> Result<Reader<#ident>, Error> {
                 const types: [&'static str; #types_len] = [#(#types ,)*];
                 let reader = Reader::from_bytes_raw(buffer)?;

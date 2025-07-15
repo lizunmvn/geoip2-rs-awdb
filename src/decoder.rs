@@ -5,6 +5,8 @@ pub(crate) const DATA_TYPE_POINTER: u8 = 1;
 pub(crate) const DATA_TYPE_STRING: u8 = 2;
 pub(crate) const DATA_TYPE_FLOAT64: u8 = 3;
 // pub(crate) const DATA_TYPE_BYTES: u8 = 4;
+// Bytes in awdb is UTF-8 encoded string
+pub(crate) const DATA_TYPE_BYTES: u8 = 4;
 pub(crate) const DATA_TYPE_UINT16: u8 = 5;
 pub(crate) const DATA_TYPE_UINT32: u8 = 6;
 pub(crate) const DATA_TYPE_MAP: u8 = 7;
@@ -148,12 +150,12 @@ pub(crate) fn read_str<'a>(buffer: &'a [u8], offset: &mut usize) -> Result<&'a s
 pub(crate) fn read_str<'a>(buffer: &'a [u8], offset: &mut usize) -> Result<&'a str, Error> {
     let (data_type, size) = read_control(buffer, offset)?;
     match data_type {
-        DATA_TYPE_STRING => Ok(std::str::from_utf8(read_bytes(buffer, offset, size)?)?),
+        DATA_TYPE_STRING | DATA_TYPE_BYTES => Ok(std::str::from_utf8(read_bytes(buffer, offset, size)?)?),
         DATA_TYPE_POINTER => {
             let offset = &mut read_pointer(buffer, offset, size)?;
             let (data_type, size) = read_control(buffer, offset)?;
             match data_type {
-                DATA_TYPE_STRING => Ok(std::str::from_utf8(read_bytes(buffer, offset, size)?)?),
+                DATA_TYPE_STRING | DATA_TYPE_BYTES => Ok(std::str::from_utf8(read_bytes(buffer, offset, size)?)?),
                 _ => Err(Error::InvalidDataType(data_type)),
             }
         }

@@ -6,5 +6,5 @@ mod reader;
 
 pub use errors::Error;
 pub use reader::{
-    AnonymousIP, City, ConnectionType, Country, Domain, Enterprise, Reader, ASN, ISP,
+    AnonymousIP, City, ConnectionType, Country, Domain, Enterprise, Reader, ASN, ISP,AwdbCity,
 };

@@ -23,6 +23,46 @@ pub struct Reader<'a, T> {
 }
 
 impl<'a, T> Reader<'a, T> {
+
+    // awdb version of from_bytes_raw
+    fn from_bytes_raw_awdb(buffer: &'a [u8]) -> Result<Reader<'a, T>, Error> {
+        let mut metadata_start = match Metadata::find_start_awdb(buffer) {
+            Some(index) => index,
+            None => return Err(Error::InvalidMetadata),
+        };
+        let mut metadata = Metadata::default();
+        metadata.from_bytes(buffer, &mut metadata_start)?;
+        if metadata.record_size != 24 && metadata.record_size != 28 && metadata.record_size != 32 {
+            return Err(Error::InvalidRecordSize(metadata.record_size));
+        }
+        let node_offset_mult = (metadata.record_size as usize) / 4;
+        let search_tree_size = (metadata.node_count as usize) * node_offset_mult;
+        let data_section_start = search_tree_size + DATA_SECTION_SEPARATOR_SIZE;
+        if data_section_start > metadata_start {
+            return Err(Error::InvalidSearchTreeSize);
+        }
+        let mut reader = Reader {
+            t: PhantomData,
+            metadata,
+            decoder_buffer: &buffer[data_section_start..metadata_start],
+            node_buffer: &buffer[..search_tree_size],
+            node_offset_mult,
+            ip_v4_start: 0,
+            ip_v4_start_bit_depth: 0,
+        };
+        if reader.metadata.ip_version == 6 {
+            let mut node = 0usize;
+            let mut i = 0usize;
+            while i < 96 && node < reader.metadata.node_count as usize {
+                i += 1;
+                node = reader.read_left(node * node_offset_mult)
+            }
+            reader.ip_v4_start = node;
+            reader.ip_v4_start_bit_depth = i;
+        }
+        Ok(reader)
+    }
+
     fn from_bytes_raw(buffer: &'a [u8]) -> Result<Reader<'a, T>, Error> {
         let mut metadata_start = match Metadata::find_start(buffer) {
             Some(index) => index,
@@ -247,4 +287,26 @@ pub struct ASN<'a> {
 #[derive(Default, Debug)]
 pub struct Domain<'a> {
     pub domain: Option<&'a str>,
+}
+
+#[reader("IP_basic_single_WGS84_awdb.awdb")]
+#[derive(Default, Debug)]
+pub struct AwdbCity<'a> {
+    pub continent: Option<&'a str>,
+    pub owner: Option<&'a str>,
+    pub country: Option<&'a str>,
+    pub adcode: Option<&'a str>,
+    pub city: Option<&'a str>,
+    pub timezone: Option<&'a str>,
+    pub isp: Option<&'a str>,
+    pub accuracy: Option<&'a str>,
+    pub source: Option<&'a str>,
+    pub asnumber: Option<&'a str>,
+    pub areacode: Option<&'a str>,
+    pub zipcode: Option<&'a str>,
+    pub lngwgs: Option<&'a str>,
+    pub province: Option<&'a str>,
+    pub latwgs: Option<&'a str>,
+    pub radius: Option<&'a str>,
+    pub district: Option<&'a str>,
 }

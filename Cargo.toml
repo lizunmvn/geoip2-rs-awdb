@@ -1,14 +1,15 @@
 [package]
-name = "geoip2"
-version = "0.1.7"
-authors = ["IncSW <dev@incsw.in>"]
-description = "Library for reading MaxMind DB format used by GeoIP2 and GeoLite2"
+name = "geoip2-awdb"
+version = "0.1.8"
+# 作者联系方式
+authors = ["name <name@xxx.xxx>"]
+description = "Library for reading MaxMind DB format used by GeoIP2 and GeoLite2. Add ability for reading Awdb"
 readme = "README.md"
-keywords = ["MaxMind", "GeoIP2", "GeoIP", "geolocation", "ip"]
+keywords = ["MaxMind", "GeoIP2", "GeoIP", "geolocation", "ip", "awdb"]
 categories = ["database", "network-programming"]
-homepage = "https://github.com/IncSW/geoip2-rs"
-documentation = "https://docs.rs/geoip2"
-repository = "https://github.com/IncSW/geoip2-rs"
+homepage = "https://github.com/lizunmvn/geoip2-rs-awdb"
+documentation = "https://docs.rs/geoip2-awdb"
+repository = "https://github.com/lizunmvn/geoip2-rs-awdb"
 license = "MIT"
 edition = "2021"
 exclude = ["testdata"]
@@ -40,6 +41,10 @@ name = "geoip"
 
 [[test]]
 name = "dbip"
+
+# add .awdb file to test
+[[test]]
+name = "awdb"
 
 [[bench]]
 name = "geoip"

@@ -3,7 +3,7 @@
 #[cfg(test)]
 mod tests {
     extern crate test;
-    use geoip2::{City, Country, Reader};
+    use geoip2_awdb::{City, Country, Reader};
     use std::{net::IpAddr, str::FromStr};
     use test::Bencher;
 

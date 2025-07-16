@@ -43,8 +43,8 @@ name = "geoip"
 name = "dbip"
 
 # add .awdb file to test
-[[test]]
-name = "awdb"
+# [[test]]
+# name = "awdb"
 
 [[bench]]
 name = "geoip"

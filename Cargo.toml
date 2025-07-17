@@ -2,7 +2,7 @@
 name = "geoip2-awdb"
 version = "0.1.8"
 # 作者联系方式
-authors = ["name <name@xxx.xxx>"]
+authors = ["name <name@xxx.xxx>", "geoip2-awdb contributors"]
 description = "Library for reading MaxMind DB format used by GeoIP2 and GeoLite2. Add ability for reading Awdb"
 readme = "README.md"
 keywords = ["MaxMind", "GeoIP2", "GeoIP", "geolocation", "ip", "awdb"]

@@ -8,7 +8,7 @@ use crate::decoder::{
 use crate::errors::Error;
 use crate::metadata::Metadata;
 use crate::models;
-use geoip2_codegen::reader;
+use geoip2_awdb_codegen::reader;
 
 const DATA_SECTION_SEPARATOR_SIZE: usize = 16;
 

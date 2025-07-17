@@ -271,11 +271,12 @@ pub fn reader(metadata: TokenStream, input: TokenStream) -> TokenStream {
     let generics = &input.generics;
     let fields = extract_fields(&input.fields);
 
-    let output = quote! {
-        #input
-
-        impl<'a> Reader<'a, #ident #generics> {
-
+    // 检查是否为 AWDB 类型（包含 .awdb 扩展名的类型）
+    let has_awdb_type = types.iter().any(|t| t.value().contains(".awdb"));
+    
+    let methods = if has_awdb_type {
+        // 只为 AWDB 类型生成 from_bytes_awdb 方法
+        quote! {
             pub fn from_bytes_awdb(buffer: &[u8]) -> Result<Reader<#ident>, Error> {
                 const types: [&'static str; #types_len] = [#(#types ,)*];
                 let reader = Reader::from_bytes_raw_awdb(buffer)?;
@@ -286,7 +287,10 @@ pub fn reader(metadata: TokenStream, input: TokenStream) -> TokenStream {
                 }
                 Ok(reader)
             }
-
+        }
+    } else {
+        // 为其他类型生成 from_bytes 方法
+        quote! {
             pub fn from_bytes(buffer: &[u8]) -> Result<Reader<#ident>, Error> {
                 const types: [&'static str; #types_len] = [#(#types ,)*];
                 let reader = Reader::from_bytes_raw(buffer)?;
@@ -297,6 +301,14 @@ pub fn reader(metadata: TokenStream, input: TokenStream) -> TokenStream {
                 }
                 Ok(reader)
             }
+        }
+    };
+
+    let output = quote! {
+        #input
+
+        impl<'a> Reader<'a, #ident #generics> {
+            #methods
 
             pub fn lookup(&self, address: IpAddr) -> Result<#ident, Error> {
                 let mut result = #ident::default();

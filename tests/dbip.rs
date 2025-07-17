@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use geoip2::{City, Country, Reader, ASN};
+    use geoip2_awdb::{City, Country, Reader, ASN};
     use std::{net::IpAddr, str::FromStr};
 
     #[test]

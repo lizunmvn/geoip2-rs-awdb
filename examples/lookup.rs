@@ -1,4 +1,4 @@
-use geoip2::{City, Reader};
+use geoip2_awdb::{City, Reader};
 use std::{env, fs, net::IpAddr, str::FromStr};
 
 fn main() {

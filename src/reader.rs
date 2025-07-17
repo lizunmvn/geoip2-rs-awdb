@@ -8,7 +8,7 @@ use crate::decoder::{
 use crate::errors::Error;
 use crate::metadata::Metadata;
 use crate::models;
-use geoip2_codegen::reader;
+use geoip2_awdb_codegen::reader;
 
 const DATA_SECTION_SEPARATOR_SIZE: usize = 16;
 
@@ -25,7 +25,7 @@ pub struct Reader<'a, T> {
 impl<'a, T> Reader<'a, T> {
 
     // awdb version of from_bytes_raw
-    pub fn from_bytes_raw_awdb(buffer: &'a [u8]) -> Result<Reader<'a, T>, Error> {
+    fn from_bytes_raw_awdb(buffer: &'a [u8]) -> Result<Reader<'a, T>, Error> {
         let mut metadata_start = match Metadata::find_start_awdb(buffer) {
             Some(index) => index,
             None => return Err(Error::InvalidMetadata),

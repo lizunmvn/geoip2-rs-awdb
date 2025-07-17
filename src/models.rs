@@ -3,7 +3,7 @@ use crate::decoder::{
     DATA_TYPE_MAP, DATA_TYPE_POINTER,
 };
 use crate::errors::Error;
-use geoip2_codegen::Decoder;
+use geoip2_awdb_codegen::Decoder;
 
 #[derive(Default, Debug, Decoder)]
 pub struct Continent<'a> {

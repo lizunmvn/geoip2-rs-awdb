@@ -1,12 +1,12 @@
 [package]
-name = "geoip2-codegen"
-version = "0.1.5"
-authors = ["IncSW <dev@incsw.in>"]
+name = "geoip2-awdb-codegen"
+version = "0.1.6"
+authors = ["IncSW <dev@incsw.in>", "geoip2-awdb contributors"]
 description = "geoip2 macros"
 readme = "README.md"
-homepage = "https://github.com/IncSW/geoip2-rs"
-documentation = "https://docs.rs/geoip2-codegen"
-repository = "https://github.com/IncSW/geoip2-rs"
+homepage = "https://github.com/lizunmvn/geoip2-rs-awdb"
+documentation = "https://docs.rs/geoip2-awdb-codegen"
+repository = "https://github.com/lizunmvn/geoip2-rs-awdb"
 license = "MIT"
 edition = "2021"
 

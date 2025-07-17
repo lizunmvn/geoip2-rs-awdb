@@ -3,7 +3,7 @@ use crate::decoder::{
     DATA_TYPE_POINTER,
 };
 use crate::errors::Error;
-use geoip2_codegen::Decoder;
+use geoip2_awdb_codegen::Decoder;
 
 // Metadata structure for GeoIP2 databases
 const METADATA_START_MARKER: [u8; 14] = [

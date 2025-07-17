@@ -1,10 +1,10 @@
 [package]
 name = "geoip2-awdb"
-version = "0.1.8"
+version = "0.2.0"
 authors = ["IncSW <dev@incsw.in>", "geoip2-awdb contributors"]
 description = "Library for reading MaxMind DB format used by GeoIP2 and GeoLite2. Add ability for reading Awdb"
 readme = "README.md"
-keywords = ["MaxMind", "GeoIP2", "GeoIP", "geolocation", "ip", "awdb"]
+keywords = ["MaxMind", "GeoIP2", "GeoIP", "ip", "awdb"]
 categories = ["database", "network-programming"]
 homepage = "https://github.com/lizunmvn/geoip2-rs-awdb"
 documentation = "https://docs.rs/geoip2-awdb"
@@ -18,13 +18,13 @@ default = []
 unsafe-str = []
 
 [dependencies]
-geoip2-codegen = "0.1.5"
+geoip2-awdb-codegen = "0.1.6"
 
 [workspace]
 members = [".", "codegen"]
 
 [patch.crates-io]
-geoip2-codegen = { path = "codegen" }
+geoip2-awdb-codegen = { path = "codegen" }
 
 [dev-dependencies]
 maxminddb = "0.24.0"

@@ -4,13 +4,8 @@
 		<strong>This library reads MaxMind GeoIP2 databases</strong>
 	</p>
 
-[![Build Status](https://github.com/IncSW/geoip2-rs/workflows/build/badge.svg)](https://github.com/IncSW/geoip2-rs/actions)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
-[![Downloads](https://img.shields.io/crates/d/geoip2.svg)](https://crates.io/crates/geoip2)
-
-[![crates.io](https://img.shields.io/crates/v/geoip2?label=latest)](https://crates.io/crates/geoip2)
-[![Documentation](https://docs.rs/geoip2/badge.svg?version=0.1.7)](https://docs.rs/geoip2/0.1.7)
-[![Dependency Status](https://deps.rs/crate/geoip2/0.1.7/status.svg)](https://deps.rs/crate/geoip2/0.1.7)
+[![Downloads](https://img.shields.io/crates/d/geoip2-awdb.svg)](https://crates.io/crates/geoip2-awdb)
 
 
 </div>
@@ -23,7 +18,7 @@ Add ability to read .awdb
 
 ```toml
 [dependencies]
-geoip2 = "0.1.7"
+geoip2-awdb = "0.2.0"
 ```
 
 See [examples/lookup.rs](examples/lookup.rs) for a basic example.
@@ -36,6 +31,7 @@ Place `GeoIP2-Country.mmdb` and `GeoIP2-City.mmdb` in the `testdata` folder, the
 ```
 cargo bench
 ```
+Same as '.awdb' file
 
 Tested on paid DB on cargo 1.56.0-nightly, Intel i7-7700, Debian 9.1.
 

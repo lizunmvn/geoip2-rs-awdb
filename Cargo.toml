@@ -18,13 +18,13 @@ default = []
 unsafe-str = []
 
 [dependencies]
-geoip2-codegen = "0.1.5"
+geoip2-awdb-codegen = "0.1.6"
 
 [workspace]
 members = [".", "codegen"]
 
 [patch.crates-io]
-geoip2-codegen = { path = "codegen" }
+geoip2-awdb-codegen = { path = "codegen" }
 
 [dev-dependencies]
 maxminddb = "0.24.0"

@@ -1,6 +1,6 @@
 [package]
 name = "geoip2-awdb"
-version = "0.1.10"
+version = "0.2.0"
 authors = ["IncSW <dev@incsw.in>", "geoip2-awdb contributors"]
 description = "Library for reading MaxMind DB format used by GeoIP2 and GeoLite2. Add ability for reading Awdb"
 readme = "README.md"
